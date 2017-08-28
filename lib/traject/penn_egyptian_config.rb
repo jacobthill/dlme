@@ -21,8 +21,8 @@ to_field 'id', normalize_prefixed_id('emuIRN')
 
 to_field 'cho_provenance', column('accession_credit_line')
 to_field 'cho_creator', column('creator')
-to_field 'cho_coverage', column('culture', split: '|')
-to_field 'agg_data_provider', normalize_penn_egyptian_provider
+to_field 'cho_coverage', column('culture', split: '|', trim: true)
+to_field 'agg_data_provider', column('curatorial_section', append: ' Section, Penn Museum')
 to_field 'cho_date', column('date_made')
 to_field 'cho_date', column('date_made_early')
 to_field 'cho_date', column('date_made_late')
@@ -48,5 +48,6 @@ to_field 'agg_is_shown_at' do |_record, accumulator, context|
 end
 to_field 'agg_is_shown_by' do |_record, accumulator, context|
   accumulator << transform_values(context,
-                                  'wr_id' => normalize_penn_egyptian_shown_by)
+                                  'wr_id' => [column('emuIRN',
+                                                     insert: 'https://www.penn.museum/collections/object_images.php?irn={%s}')])
 end

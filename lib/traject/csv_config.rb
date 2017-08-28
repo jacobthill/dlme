@@ -4,9 +4,9 @@ require_relative 'csv_reader'
 require_relative 'dlme_json_resource_writer'
 require_relative 'macros/csv'
 require_relative 'macros/dlme'
-
 extend Macros::DLME
 extend Macros::Csv
+
 settings do
   provide 'writer_class_name', 'DlmeJsonResourceWriter'
   provide 'reader_class_name', 'CsvReader'
